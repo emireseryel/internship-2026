@@ -17,6 +17,10 @@
             <div class="card-body">
                 <form method="POST" action="{{ route('loans.store') }}">
                     @csrf
+                    <input type="hidden" name="member_id" value="{{ $member->id }}">
+                    <label class="form-lable">Member</label>
+                        <h4 class="mb-3"> {{ $member->name }}</h4>
+                    </select>
 
                     <label class="form-lable">Books</label>
                     <select name="book_id" multiple class="form-select mb-3 w-50" required>
@@ -26,18 +30,9 @@
                         </option>
                         @endforeach
                     </select>
-
-                    <label class="form-lable">Members</label>
-                    <select name="member_id" multiple class="form-select mb-3 w-50" required>
-                        @foreach ($members as $member)
-                        <option value="{{ $member->id }}">
-                            {{ $member->name }}
-                        </option>
-                        @endforeach
-                    </select>
                     
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                        <a href="{{ route('loans.index') }}" class="btn btn-danger shadow-sm fixed">Back</a>
+                        <a href="{{ route('members.index') }}" class="btn btn-danger shadow-sm fixed">Back</a>
                         <button type="submit" class="btn btn-primary">Save</button>
                     </div>
                 </form>

@@ -18,13 +18,9 @@
                 <form method="POST" action="{{ route('loans.store') }}">
                     @csrf
 
-                    <label class="form-lable">Books</label>
-                    <select name="book_id" multiple class="form-select mb-3 w-50" required>
-                        @foreach ($books as $book)
-                        <option value="{{ $book->id }}">
-                            {{ $book->title }}
-                        </option>
-                        @endforeach
+                    <input type="hidden" name="book_id" value="{{ $book->id }}">
+                    <label class="form-lable">Book</label>
+                        <h4 class="mb-3"> {{ $book->title }}</h4>
                     </select>
 
                     <label class="form-lable">Members</label>
@@ -37,7 +33,7 @@
                     </select>
                     
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                        <a href="{{ route('loans.index') }}" class="btn btn-danger shadow-sm fixed">Back</a>
+                        <a href="{{ route('books.index') }}" class="btn btn-danger shadow-sm fixed">Back</a>
                         <button type="submit" class="btn btn-primary">Save</button>
                     </div>
                 </form>

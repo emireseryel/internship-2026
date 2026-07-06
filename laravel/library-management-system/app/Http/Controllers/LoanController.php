@@ -21,6 +21,16 @@ class LoanController extends Controller
         return view('loans.create', compact('books', 'members'));
     }
 
+    public function createLoan(Book $book) {
+        $members=Member::all();
+        return view('loans.createLoan',compact('book','members'));
+    }
+
+    public function createLoanForMember(Member $member) {
+        $books=Book::all();
+        return view('loans.createLoanForMember',compact('books','member'));
+    }
+
     public function store(Request $request) {
         $validated = $request->validate([
             'book_id' => 'required|exists:books,id',
@@ -63,4 +73,6 @@ class LoanController extends Controller
 
         return redirect()->back()->with('success','Book has returned.');
     }
+
+    
 }

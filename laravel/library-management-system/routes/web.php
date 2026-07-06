@@ -35,8 +35,12 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::resource('authors', AuthorController::class);
     Route::resource('books', BookController::class);
+    Route::get('/books/create/{givenAuthor}', [BookController::class, 'create'])->name('books.create');
     Route::post('/loans/{loan}/return', [App\Http\Controllers\LoanController::class, 'returnBook'])->name('loans.return');
+    Route::get('/loans/create-loan/{book}', [LoanController::class, 'createLoan'])->name('loans.createLoan');
+    Route::get('/loans/create-for-member/{member}', [LoanController::class, 'createLoanForMember'])->name('loans.createLoanForMember');
     Route::resource('loans', LoanController::class);
+    
     Route::resource('members', MemberController::class);
 });
 

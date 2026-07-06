@@ -61,7 +61,12 @@
 
                             <td class="text-end pe-4">
                                 <div class="d-flex justify-content-end gap-2">
-                                    <a href="{{ route('books.edit', $book->id) }}" class="btn btn-sm btn-outline-warning rounded-2 px-3"> Edit
+                                    <a href="{{ route('loans.createLoan', $book->id) }}" 
+                                    class="btn btn-sm btn-outline-success rounded-2 px-3"> Borrow
+                                    </a>
+
+                                    <a href="{{ route('books.edit', $book->id) }}" 
+                                    class="btn btn-sm btn-outline-warning rounded-2 px-3"> Edit
                                     </a>
 
                                     <form action="{{ route('books.destroy', $book->id) }}"

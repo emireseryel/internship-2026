@@ -12,9 +12,9 @@ class BookController extends Controller
         return view('books.index',compact('books'));
     }
 
-    public function create() {
+    public function create(Author $givenAuthor) {
         $authors=Author::all();
-        return view('books.create',compact('authors'));
+        return view('books.create',compact('authors','givenAuthor'));
     }
 
     public function store(Request $request){

@@ -23,9 +23,10 @@
                     </div>
 
                     <label class="form-lable">Authors</label>
-                    <select name="authors_ids[]" multiple class="form-select mb-3 w-50" required>
+                    <select name="authors_ids[]" multiple class="form-select w-50">
                         @foreach ($authors as $author)
-                        <option value="{{ $author->id }}">
+                        <option value="{{ $author->id }}" @selected(request()->has($author->id) || 
+                            (isset($givenAuthor) && $author->id === $givenAuthor->id))>
                             {{ $author->name }}
                         </option>
                         @endforeach

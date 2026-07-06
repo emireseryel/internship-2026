@@ -44,9 +44,10 @@
                             </td>
 
                             <td>
-                                <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2 fw-medium">
+                                <a href="{{ route('authors.show',$author->id) }}" class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2 fw-medium">
                                     {{ $author->books->count() }} Kitap
-                                </span>
+                                    
+                                </a>
                             </td>
 
                             <td class="text-end pe-4">

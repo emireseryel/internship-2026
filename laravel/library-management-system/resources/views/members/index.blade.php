@@ -50,8 +50,8 @@
 
                             <td class="text-end pe-4">
                                 <div class="d-flex justify-content-end gap-2">
-                                    <a href="{{ route('members.edit', $member->id) }}" class="btn btn-sm btn-outline-warning rounded-2 px-3"> Edit
-                                    </a>
+                                    <a href="{{ route('loans.createLoanForMember', $member->id) }}" class="btn btn-sm btn-outline-success rounded-2 px-3"> Borrow </a>
+                                    <a href="{{ route('members.edit', $member->id) }}" class="btn btn-sm btn-outline-warning rounded-2 px-3"> Edit</a>
 
                                     <form action="{{ route('members.destroy', $member->id) }}" method="POST" class="d-inline m-0">
                                         @csrf
