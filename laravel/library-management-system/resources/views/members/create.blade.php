@@ -19,12 +19,12 @@
                     @csrf
                     <div class="mb-3 w-50">
                         <label for="name" class="form-lable">Name</label>
-                        <input type="text" name="name" class="form-control" required>
+                        <input type="text" name="name" class="form-control" placeholder="Ali Yıldız" required>
                     </div>
 
                     <div class="mb-3 w-50">
                         <label for="" class="form-lable">Email</label>
-                        <input type="email" name="email" class="form-control" required>
+                        <input type="email" name="email" class="form-control" placeholder="aliyildiz@example.com" required>
                     </div>
 
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">

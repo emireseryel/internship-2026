@@ -37,20 +37,20 @@
                         @foreach($loans as $loan)
                         <tr class="{{ $loan->is_overdue ? 'table-danger' : '' }}">
                             <td class="ps-4 fw-semibold text-dark">
-                                {{ $loan->book?->title ?? 'Book Deleted' }}
+                                {{ $loan->book->title }}
                             </td>
                             <td>
                                 <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2 fw-medium">
-                                    {{ $loan->member->name ?? 'Book Deleted' }}
+                                    {{ $loan->member->name }}
                                 </span>
                             </td>
                             <td>
                                 @if (!is_null($loan->returned_at))
-                                <span class="badge bg-success">Returned</span>
+                                    <span class="badge bg-success">Returned</span>
                                 @elseif ($loan->is_overdue)
-                                <span class="badge bg-danger">Overdue</span>
+                                    <span class="badge bg-danger">Overdue</span>
                                 @else
-                                <span class="badge bg-warning text-dark">In the Member</span>
+                                    <span class="badge bg-warning text-dark">In the Member</span>
                                 @endif
                             </td>
                             <td class="text-end pe-4">

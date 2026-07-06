@@ -45,7 +45,7 @@
 
                             <td>
                                 <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2 fw-medium">
-                                    {{ $author->books_count }} Kitap
+                                    {{ $author->books->count() }} Kitap
                                 </span>
                             </td>
 

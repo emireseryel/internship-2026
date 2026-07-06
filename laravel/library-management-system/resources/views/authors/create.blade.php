@@ -20,7 +20,7 @@
 
                     <div class="mb-3 w-50">
                         <label for="name" class="form-lable">Authors Name</label>
-                        <input type="text" name="name" class="form-control" required>
+                        <input type="text" name="name" class="form-control" placeholder="Sabahattin Ali" required>
                     </div>
 
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">

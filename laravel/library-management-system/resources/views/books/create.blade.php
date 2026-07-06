@@ -44,7 +44,6 @@
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                         <a href="{{ route('books.index') }}" class="btn btn-danger shadow-sm fixed">Back</a>
                         <button type="submit" class="btn btn-primary">Save</button>
-
                     </div>
                 </form>
             </div>
