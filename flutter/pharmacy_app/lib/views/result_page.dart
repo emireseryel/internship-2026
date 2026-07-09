@@ -85,7 +85,6 @@ class _ResultPageState extends State<ResultPage> {
             );
           }
 
-          // Durum 4: Başarılı ve Veri Var
           return ListView.builder(
             itemCount: pharmacies.length,
             itemBuilder: (context, index) {
