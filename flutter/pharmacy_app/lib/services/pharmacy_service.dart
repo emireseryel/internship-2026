@@ -5,9 +5,9 @@ import '../models/pharmacy_model.dart';
 class PharmacyService {
   final _dio = Dio();
 
-  Future<List<Pharmacy>?> fetchPharmacies(String city) async {
+  Future<List<Pharmacy>?> fetchPharmacies(String city,String dist) async {
     try {
-      String dynamicUrl = 'https://api.collectapi.com/health/dutyPharmacy?il=$city';
+      String dynamicUrl = 'https://api.collectapi.com/health/dutyPharmacy?ilce=${dist}&il=$city';
       Map<String, dynamic> headers = {
         "content-type": "application/json",
         "authorization": "apikey ${dotenv.env['COLLECT_API_KEY']}",
@@ -35,5 +35,28 @@ class PharmacyService {
     }
 
     return null;
+  }
+
+  Future<List<dynamic>> getDistricts(String city) async{
+    try {
+      String dynamicUrl = 'https://api.collectapi.com/health/districtList?il=$city';
+      Map<String, dynamic> headers = {
+        "content-type": "application/json",
+        "authorization": "apikey ${dotenv.env['COLLECT_API_KEY']}",
+      };
+
+      Response response = await _dio.get(
+        dynamicUrl,
+        options: Options(headers: headers),
+      );
+
+      if (response.statusCode == 200 && response.data['success'] == true) {
+        return response.data['result'];
+        }
+      return [];
+      }catch(e){
+        print ("Dio district error.");
+        return [];
+      }
   }
 }

@@ -1,5 +1,24 @@
 {"app_title": "Nöbetçi Eczaneler",
  "home_page": "Ana Sayfa",
+ "home_title": "Nöbetçi Eczane Arayın",
+ "info": "Lütfen listelemek istediğiniz ili ve ilçeyi seçerek arama butonuna basınız.",
+ "select_city": "İl seçin",
+ "select_district": "İlçe seçin",
+ "warning_select_district": "Lütfen bir ilçe seçin!",
  "search_hint": "Şehir adı giriniz",
- "no_pharmacy": "Eczane bulunamadı. Yeni arama yapın"
+ "no_pharmacy": "Eczane bulunamadı. Yeni arama yapın",
+
+
+ "result_page": "Sonuçlar",
+ "see_details": "Detayları gör",
+ "network_api_error": "Network/API Hatası Oluştu!",
+ "warning_not_found": "Seçilen bölgede nöbetçi eczane bulunamadı.",
+
+
+
+ "detail_page": "Eczane Detayları",
+ "detail_district": "Adres: ",
+ "detail_phone": "Telefon No: ",
+ "favorite_added": "Favorilere eklendi.",
+ "favorite_removed": "Favorilerden çıkarıldı."
 }

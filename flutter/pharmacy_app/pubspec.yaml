@@ -30,7 +30,8 @@ environment:
 dependencies:
   flutter_dotenv:
   dio:
-  easy_localization: 
+  easy_localization:
+  shared_preferences: 
   
   flutter_localizations:
     sdk: flutter

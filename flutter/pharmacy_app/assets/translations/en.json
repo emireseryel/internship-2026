@@ -1,4 +1,24 @@
 {"app_title": "Pharmacies on Duty", 
 "home_page": "Home Page",
+"home_title": "Nöbetçi Eczane Arayın",
+"info": "Please select the city and district to list and click the search button.",
+"select_city": "Select City",
+"select_district": "Select district",
+"warning_select_district": "Please select a district!",
 "search_hint": "Enter a city",
- "no_pharmacy": "No pharmacy found. Make a new search."}
+"no_pharmacy": "No pharmacy found. Make a new search.",
+
+
+
+"result_page": "Results",
+"see_details": "See Details",
+"network_api_error": "Network/API Error Occured!",
+"warning_not_found": "No on-duty pharmacy was found in the selected area.",
+
+
+"detail_page": "Pharmacy Details",
+"detail_district": "Addrres: ",
+"detail_phone": "Phone: ",
+"favorite_added": "Added to favorites.",
+"favorite_removed": "Removed to favorites."
+}

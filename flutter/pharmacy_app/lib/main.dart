@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pharmacy_app/views/home_page.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:pharmacy_app/views/home_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
