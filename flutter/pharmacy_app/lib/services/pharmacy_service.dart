@@ -7,7 +7,7 @@ class PharmacyService {
 
   Future<List<Pharmacy>?> fetchPharmacies(String city,String dist) async {
     try {
-      String dynamicUrl = 'https://api.collectapi.com/health/dutyPharmacy?ilce=${dist}&il=$city';
+      String dynamicUrl = 'https://api.collectapi.com/health/dutyPharmacy?ilce=$dist&il=$city';
       Map<String, dynamic> headers = {
         "content-type": "application/json",
         "authorization": "apikey ${dotenv.env['COLLECT_API_KEY']}",

@@ -1,54 +1,19 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:pharmacy_app/viewmodels/detail_viewmodel.dart';
 import 'package:pharmacy_app/models/pharmacy_model.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:provider/provider.dart';
 
-class DetailPage extends StatefulWidget {
+class DetailPage extends StatelessWidget {
   final Pharmacy pharmacy;
 
   const DetailPage({super.key, required this.pharmacy});
 
   @override
-  State<DetailPage> createState() => _DetailPageState();
-}
-
-class _DetailPageState extends State<DetailPage> {
-  bool _isFavorite = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _loadFavoriteStatus();
-  }
-
-  
-  Future<void> _loadFavoriteStatus() async {
-    final prefs = await SharedPreferences.getInstance();
-    setState(() {
-      _isFavorite = prefs.getBool(widget.pharmacy.name) ?? false;
-    });
-  }
-
-  
-  Future<void> _toggleFavorite() async {
-    final prefs = await SharedPreferences.getInstance();
-    setState(() {
-      _isFavorite = !_isFavorite;
-    });
-    await prefs.setBool(widget.pharmacy.name, _isFavorite);
-
-    if (mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(_isFavorite ? 'favorite_added'.tr() : 'favorite_removed'.tr()),
-          duration: const Duration(seconds: 1),
-        ),
-      );
-    }
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final viewModel = context.watch<DetailViewModel>();
+
+    
     return Scaffold(
       appBar: AppBar(
         title: Row(
@@ -70,10 +35,10 @@ class _DetailPageState extends State<DetailPage> {
         actions: [
           IconButton(
             icon: Icon(
-              _isFavorite ? Icons.favorite : Icons.favorite_border,
-              color: _isFavorite ? Colors.red : null,
+               viewModel.isFavorite ? Icons.favorite : Icons.favorite_border,
+              color: viewModel.isFavorite ? Colors.red : null,
             ),
-            onPressed: _toggleFavorite,
+            onPressed: () => viewModel.toggleFavorite(pharmacy.name),
           )
         ],
       ),
@@ -89,7 +54,7 @@ class _DetailPageState extends State<DetailPage> {
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Text(
-                widget.pharmacy.name,
+                pharmacy.name,
                 style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
               ),
             ),
@@ -100,7 +65,7 @@ class _DetailPageState extends State<DetailPage> {
                 const SizedBox(width: 8),
                 Expanded(
                   child: Text(
-                    'detail_district'.tr() + " " + widget.pharmacy.address,
+                    "${'detail_district'.tr()} ${pharmacy.address}",
                     style: const TextStyle(fontSize: 18),
                   ),
                 ),
@@ -112,7 +77,7 @@ class _DetailPageState extends State<DetailPage> {
                 const Icon(Icons.phone, color: Colors.green),
                 const SizedBox(width: 8),
                 Text(
-                  'detail_phone'.tr() + " " + widget.pharmacy.phone,
+                  "${'detail_phone'.tr()} ${pharmacy.phone}",
                   style: const TextStyle(fontSize: 18),
                 ),
               ],

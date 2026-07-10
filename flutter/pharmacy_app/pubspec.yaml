@@ -31,7 +31,8 @@ dependencies:
   flutter_dotenv:
   dio:
   easy_localization:
-  shared_preferences: 
+  shared_preferences:
+  provider:
   
   flutter_localizations:
     sdk: flutter

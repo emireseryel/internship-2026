@@ -1,31 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:pharmacy_app/models/pharmacy_model.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:pharmacy_app/services/pharmacy_service.dart';
+import 'package:pharmacy_app/viewmodels/detail_viewmodel.dart';
+import 'package:pharmacy_app/viewmodels/result_viewmodel.dart';
 import 'package:pharmacy_app/views/detail_page.dart';
+import 'package:provider/provider.dart';
 
-class ResultPage extends StatefulWidget {
+class ResultPage extends StatelessWidget {
   final String city;
   final String dist;
 
   const ResultPage({super.key, required this.city, required this.dist});
 
   @override
-  State<ResultPage> createState() => _ResultPageState();
-}
-
-
-class _ResultPageState extends State<ResultPage> {
-  final PharmacyService _pharmacyService = PharmacyService();
-  late Future<List<Pharmacy>?> _futurePharmacies;
-
-  void initState() {
-    super.initState();
-    _futurePharmacies = _pharmacyService.fetchPharmacies(widget.city, widget.dist);
-  }
-
-  @override
   Widget build(BuildContext context) {
+    
+    final viewModel = context.watch<ResultViewModel>();
+
     return Scaffold(
       appBar: AppBar(
         title: Row(
@@ -45,6 +35,7 @@ class _ResultPageState extends State<ResultPage> {
           ],
         ),
       ),
+<<<<<<< HEAD
         body: FutureBuilder<List<Pharmacy>?>(
         future: _futurePharmacies,
         builder: (context, snapshot) {
@@ -103,12 +94,60 @@ class _ResultPageState extends State<ResultPage> {
                     );
                   },
                   child: Text('see_details'.tr()),
+=======
+      body: viewModel.isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : viewModel.errorMessage != null
+          ? Center(
+              child: Text(
+                viewModel.errorMessage!,
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+>>>>>>> 814eb8e (refactor: migrate project architecture to MVVM using Provider package)
                 ),
-              );
-            },
-          );
-        },
-      ),
+              ),
+            )
+          : viewModel.pharmacies.isEmpty
+          ? Center(
+              child: Text(
+                'warning_not_found'.tr(),
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            )
+          : ListView.builder(
+              // Veri geldiyse doğrudan liste
+              itemCount: viewModel.pharmacies.length,
+              itemBuilder: (context, index) {
+                final pharmacy = viewModel.pharmacies[index];
+
+                return ListTile(
+                  leading: Image.asset(
+                    'assets/images/pharmacy-icon.png',
+                    width: 40,
+                    height: 40,
+                  ),
+                  title: Text(pharmacy.name),
+                  subtitle: Text(pharmacy.dist),
+                  trailing: ElevatedButton(
+                    onPressed: () {
+                      context.read<DetailViewModel>().loadFavoriteStatus(pharmacy.name);
+
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => DetailPage(pharmacy: pharmacy),
+                        ),
+                      );
+                    },
+                    child: Text('see_details'.tr()),
+                  ),
+                );
+              },
+            ),
     );
   }
 }
