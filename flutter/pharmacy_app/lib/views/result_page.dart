@@ -17,22 +17,25 @@ class ResultPage extends StatelessWidget {
     final viewModel = context.watch<ResultViewModel>();
 
     return Scaffold(
-      appBar: AppBar(
-        title: Row(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 10, right: 15),
-              child: SizedBox(
-                width: 50,
-                height: 50,
-                child: Image.asset(
-                  'assets/images/pharmacy-logo.png',
-                  fit: BoxFit.contain,
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(65),
+        child: AppBar(
+          title: Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 10, right: 15),
+                child: SizedBox(
+                  width: 50,
+                  height: 50,
+                  child: Image.asset(
+                    'assets/images/pharmacy-logo.png',
+                    fit: BoxFit.contain,
+                  ),
                 ),
               ),
-            ),
-            Text('result_page'.tr()),
-          ],
+              Text('result_page'.tr()),
+            ],
+          ),
         ),
       ),
       body: viewModel.isLoading
@@ -68,6 +71,8 @@ class ResultPage extends StatelessWidget {
                     'assets/images/pharmacy-icon.png',
                     width: 40,
                     height: 40,
+
+                    color: Theme.of(context).iconTheme.color,
                   ),
                   title: Text(pharmacy.name),
                   subtitle: Text(pharmacy.dist),

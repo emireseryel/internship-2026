@@ -15,32 +15,35 @@ class DetailPage extends StatelessWidget {
 
     
     return Scaffold(
-      appBar: AppBar(
-        title: Row(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 10, right: 15), 
-              child: SizedBox(
-                width: 45,
-                height: 45,
-                child: Image.asset(
-                  'assets/images/pharmacy-logo.png',
-                  fit: BoxFit.contain,
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(65),
+        child: AppBar(
+          title: Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 10, right: 15), 
+                child: SizedBox(
+                  width: 45,
+                  height: 45,
+                  child: Image.asset(
+                    'assets/images/pharmacy-logo.png',
+                    fit: BoxFit.contain,
+                  ),
                 ),
               ),
-            ),
-            Text('detail_page'.tr()),
+              Text('detail_page'.tr()),
+            ],
+          ),
+          actions: [
+            IconButton(
+              icon: Icon(
+                 viewModel.isFavorite ? Icons.favorite : Icons.favorite_border,
+                color: viewModel.isFavorite ? Colors.red : null,
+              ),
+              onPressed: () => viewModel.toggleFavorite(pharmacy.name),
+            )
           ],
         ),
-        actions: [
-          IconButton(
-            icon: Icon(
-               viewModel.isFavorite ? Icons.favorite : Icons.favorite_border,
-              color: viewModel.isFavorite ? Colors.red : null,
-            ),
-            onPressed: () => viewModel.toggleFavorite(pharmacy.name),
-          )
-        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -50,7 +53,7 @@ class DetailPage extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: Colors.blueGrey.shade50,
+                color: Theme.of(context).colorScheme.surface,
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Text(
