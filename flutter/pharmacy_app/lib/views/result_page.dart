@@ -35,66 +35,6 @@ class ResultPage extends StatelessWidget {
           ],
         ),
       ),
-<<<<<<< HEAD
-        body: FutureBuilder<List<Pharmacy>?>(
-        future: _futurePharmacies,
-        builder: (context, snapshot) {
-
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          }
-
-
-          if (snapshot.hasError || snapshot.data == null) {
-            return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Icon(Icons.error_outline, color: Colors.red, size: 60),
-                  const SizedBox(height: 10),
-                  Text(
-                    'network_api_error'.tr(),
-                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
-            );
-          }
-
-          final pharmacies = snapshot.data!;
-
-          if (pharmacies.isEmpty) {
-            return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Icon(Icons.search_off, color: Colors.amber, size: 60),
-                  const SizedBox(height: 10),
-                  Text('warning_not_found'.tr(), style: const TextStyle(fontSize: 18)),
-                ],
-              ),
-            );
-          }
-
-          return ListView.builder(
-            itemCount: pharmacies.length,
-            itemBuilder: (context, index) {
-              final pharmacy = pharmacies[index];
-              return ListTile(
-                leading: Image.asset('assets/images/pharmacy-icon.png', width: 40, height: 40),
-                title: Text(pharmacy.name),
-                subtitle: Text(pharmacy.dist),
-                trailing: ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => DetailPage(pharmacy: pharmacy),
-                      ),
-                    );
-                  },
-                  child: Text('see_details'.tr()),
-=======
       body: viewModel.isLoading
           ? const Center(child: CircularProgressIndicator())
           : viewModel.errorMessage != null
@@ -104,7 +44,6 @@ class ResultPage extends StatelessWidget {
                 style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
->>>>>>> 814eb8e (refactor: migrate project architecture to MVVM using Provider package)
                 ),
               ),
             )
