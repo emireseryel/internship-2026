@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:pharmacy_app/viewmodels/detail_viewmodel.dart';
 import 'package:pharmacy_app/models/pharmacy_model.dart';
 import 'package:provider/provider.dart';
+import 'package:pharmacy_app/themes/locale_keys.g.dart';
 
 class DetailPage extends StatelessWidget {
   final Pharmacy pharmacy;
@@ -18,6 +19,7 @@ class DetailPage extends StatelessWidget {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(65),
         child: AppBar(
+          titleSpacing: 0, 
           title: Row(
             children: [
               Padding(
@@ -31,7 +33,7 @@ class DetailPage extends StatelessWidget {
                   ),
                 ),
               ),
-              Text('detail_page'.tr()),
+              Text(LocaleKeys.detail_page.tr()),
             ],
           ),
           actions: [
@@ -68,7 +70,7 @@ class DetailPage extends StatelessWidget {
                 const SizedBox(width: 8),
                 Expanded(
                   child: Text(
-                    "${'detail_district'.tr()} ${pharmacy.address}",
+                    "${LocaleKeys.detail_district.tr()} ${pharmacy.address}",
                     style: const TextStyle(fontSize: 18),
                   ),
                 ),
@@ -80,7 +82,7 @@ class DetailPage extends StatelessWidget {
                 const Icon(Icons.phone, color: Colors.green),
                 const SizedBox(width: 8),
                 Text(
-                  "${'detail_phone'.tr()} ${pharmacy.phone}",
+                  "${LocaleKeys.detail_phone.tr()} ${pharmacy.phone}",
                   style: const TextStyle(fontSize: 18),
                 ),
               ],

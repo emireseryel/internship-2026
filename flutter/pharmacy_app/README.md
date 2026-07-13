@@ -28,5 +28,7 @@ lib/
 │
 ├── models/         # JSON nesne eşlemeleri / JSON object mappings
 ├── services/       # HTTP istekleri ve API yönetimi / HTTP requests and API management
+├── themes/         # Global tema ve renk şeması tanımlamaları / Global theme and color scheme definitions
+├── viewmodels/     # İş mantığı ve state yönetimi (MVVM) / Business logic and state management (MVVM)
 ├── views/          # UI bileşenleri ve ekranlar / UI components and screens
 └── main.dart       # Uygulama başlangıç noktası / Application entry point
