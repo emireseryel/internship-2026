@@ -1,54 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/models/pharmacy_model.dart';
 import 'package:pharmacy_app/services/pharmacy_service.dart';
-import 'package:easy_localization/easy_localization.dart';
 
-class ResultViewModel extends ChangeNotifier {
+class ResultViewModel {
   final PharmacyService _pharmacyService = PharmacyService();
 
-  List<Pharmacy> _pharmacies = [];
-  bool _isLoading = false;
-  String? _errorMessage;
-  Future<List<Pharmacy>?>? pharmaciesFuture;
-
-  List<Pharmacy> get pharmacies => _pharmacies;
-  bool get isLoading => _isLoading;
-  String? get errorMessage => _errorMessage;
+  final ValueNotifier<List<Pharmacy>> pharmacies =
+      ValueNotifier<List<Pharmacy>>([]);
+  final ValueNotifier<bool> isLoading = ValueNotifier<bool>(false);
+  final ValueNotifier<bool> hasError = ValueNotifier<bool>(false);
 
   Future<void> fetchPharmacies({
     required String city,
     required String district,
   }) async {
-    _isLoading = true;
-    _errorMessage = null;
-    notifyListeners();
+    isLoading.value = true;
 
     try {
       final result = await _pharmacyService.fetchPharmacies(city, district);
-      _pharmacies = result ?? [];
+      pharmacies.value = result ?? [];
     } catch (e) {
-      _errorMessage = 'network_api_error'.tr();
+      hasError.value = true;
     } finally {
-      _isLoading = false;
-      notifyListeners();
+      isLoading.value = false;
     }
   }
 
-
-  void loadPharmacies({required String city, required String district}) {
-    pharmaciesFuture = futurePharmacies(city: city, district: district);
-    notifyListeners();
-  }
-
-  Future<List<Pharmacy>?> futurePharmacies({
-    required String city,
-    required String district,
-  }) async {
-    try {
-      final result = await _pharmacyService.fetchPharmacies(city, district);
-      return result;
-    } catch (e) {
-      rethrow;
-    }
+  void dispose() {
+    pharmacies.dispose();
+    isLoading.dispose();
   }
 }

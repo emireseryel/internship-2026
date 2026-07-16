@@ -5,12 +5,34 @@ import 'package:pharmacy_app/core/providers/theme_viewmodel.dart';
 import 'package:provider/provider.dart';
 import 'package:pharmacy_app/localization/locale_keys.g.dart';
 
+
+import '../viewmodels/home_viewmodel.dart'; 
+
 import '../widgets/city_dropdown.dart';
 import '../widgets/district_dropdown.dart';
 import '../widgets/search_button.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  late final HomeViewModel _viewModel;
+
+  @override
+  void initState() {
+    super.initState();
+    _viewModel = HomeViewModel();
+  }
+
+  @override
+  void dispose() {
+    _viewModel.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +43,6 @@ class HomePage extends StatelessWidget {
       (vm) => vm.languages,
     );
 
-    print('home init edildi');
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(65),
@@ -70,15 +91,15 @@ class HomePage extends StatelessWidget {
 
               const SizedBox(height: 24),
 
-              CityDropdown(),
+              CityDropdown(viewModel: _viewModel),
 
               const SizedBox(height: 16),
 
-              DistrictDropdown(),
+              DistrictDropdown(viewModel: _viewModel),
 
               const SizedBox(height: 20),
 
-              SearchButton(),
+              SearchButton(viewModel: _viewModel),
 
               const SizedBox(height: 40),
 
@@ -122,8 +143,6 @@ class HomePage extends StatelessWidget {
     );
   }
 }
-
-
 
 class InfoBox extends StatelessWidget {
   const InfoBox({super.key});

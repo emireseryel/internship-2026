@@ -2,17 +2,34 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/screens/detail/viewmodels/detail_viewmodel.dart';
 import 'package:pharmacy_app/models/pharmacy_model.dart';
-import 'package:provider/provider.dart';
 import 'package:pharmacy_app/localization/locale_keys.g.dart';
 
-class DetailPage extends StatelessWidget {
+class DetailPage extends StatefulWidget {
   final Pharmacy pharmacy;
 
   const DetailPage({super.key, required this.pharmacy});
 
   @override
+  State<DetailPage> createState() => _DetailPageState();
+}
+
+class _DetailPageState extends State<DetailPage> {
+  late final DetailViewModel _viewModel;
+
+  @override
+  void initState() {
+    super.initState();
+    _viewModel = DetailViewModel();
+    _viewModel.loadFavoriteStatus(widget.pharmacy.name);
+  }
+
+  @override
+  void dispose() {
+    _viewModel.dispose();
+    super.dispose();
+  }
+  @override
   Widget build(BuildContext context) {
-    final viewModel = context.watch<DetailViewModel>();
 
     
     return Scaffold(
@@ -37,12 +54,17 @@ class DetailPage extends StatelessWidget {
             ],
           ),
           actions: [
-            IconButton(
-              icon: Icon(
-                 viewModel.isFavorite ? Icons.favorite : Icons.favorite_border,
-                color: viewModel.isFavorite ? Colors.red : null,
-              ),
-              onPressed: () => viewModel.toggleFavorite(pharmacy.name),
+            ValueListenableBuilder(
+              valueListenable: _viewModel.isFavorite,
+              builder: (context, isFavorite, child) {
+                return IconButton(
+                  icon: Icon(
+                    isFavorite ? Icons.favorite : Icons.favorite_border,
+                    color: isFavorite ? Colors.red : null,
+                  ),
+                  onPressed: () => _viewModel.toggleFavorite(widget.pharmacy.name),
+                );
+              }
             )
           ],
         ),
@@ -59,7 +81,7 @@ class DetailPage extends StatelessWidget {
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Text(
-                pharmacy.name,
+                widget.pharmacy.name,
                 style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
               ),
             ),
@@ -70,7 +92,7 @@ class DetailPage extends StatelessWidget {
                 const SizedBox(width: 8),
                 Expanded(
                   child: Text(
-                    "${LocaleKeys.detail_district.tr()} ${pharmacy.address}",
+                    "${LocaleKeys.detail_district.tr()} ${widget.pharmacy.address}",
                     style: const TextStyle(fontSize: 18),
                   ),
                 ),
@@ -82,7 +104,7 @@ class DetailPage extends StatelessWidget {
                 const Icon(Icons.phone, color: Colors.green),
                 const SizedBox(width: 8),
                 Text(
-                  "${LocaleKeys.detail_phone.tr()} ${pharmacy.phone}",
+                  "${LocaleKeys.detail_phone.tr()} ${widget.pharmacy.phone}",
                   style: const TextStyle(fontSize: 18),
                 ),
               ],

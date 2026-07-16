@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:pharmacy_app/screens/home/viewmodels/home_viewmodel.dart';
-import 'package:pharmacy_app/screens/result/viewmodels/result_viewmodel.dart';
 import 'package:pharmacy_app/screens/result/views/result_page.dart';
 import 'package:pharmacy_app/localization/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 class SearchButton extends StatelessWidget {
-  const SearchButton({super.key});
+  final HomeViewModel viewModel;
+  const SearchButton({super.key, required this.viewModel});
 
   @override
   Widget build(BuildContext context) {
-    final homeVM = context.read<HomeViewModel>();
 
     return ElevatedButton.icon(
       style: ElevatedButton.styleFrom(
@@ -21,15 +19,10 @@ class SearchButton extends StatelessWidget {
         ),
       ),
       onPressed: () {
-        final city = homeVM.selectedCity;
-        final district = homeVM.selectedDistrict;
+        final city = viewModel.selectedCity.value;
+        final district = viewModel.selectedDistrict.value;
 
         if (district != null && district.isNotEmpty) {
-          context.read<ResultViewModel>().loadPharmacies(
-            city: city,
-            district: district,
-          );
-
           Navigator.push(
             context,
             MaterialPageRoute(

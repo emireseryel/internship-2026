@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/services/pharmacy_service.dart';
 
-class HomeViewModel extends ChangeNotifier {
-  String _selectedCity = 'Adana';
-  final List<String> _cities = [
+class HomeViewModel {
+  final List<String> cities = [
     'Adana',
     'Adıyaman',
     'Afyonkarahisar',
@@ -86,29 +85,30 @@ class HomeViewModel extends ChangeNotifier {
     'Osmaniye',
     'Düzce',
   ];
-  String? _selectedDistrict;
-  List<dynamic> _districts = [];
+  final ValueNotifier<String> selectedCity = ValueNotifier('');
+  final ValueNotifier<String?> selectedDistrict = ValueNotifier<String?>(null);
+  final ValueNotifier<List<dynamic>> districts = ValueNotifier<List<dynamic>>([]);
+
+
   final PharmacyService _pharmacyService = PharmacyService();
 
-  String get selectedCity => _selectedCity;
-  String? get selectedDistrict => _selectedDistrict;
-  List<dynamic> get districts => _districts;
-  List<String> get cities => _cities;
 
-  void selectCity({required String city}) async {
-    _selectedCity = city;
-    _selectedDistrict=null;
-    _districts=[];
-    notifyListeners();
+  Future<void> selectCity({required String city}) async {
+    selectedCity.value = city;
+    selectedDistrict.value = null;
+    districts.value = [];
 
     var districtsList = await _pharmacyService.getDistricts(city);
-    _districts = districtsList;
-    notifyListeners();
+    districts.value = districtsList;
   }
 
   void selectDistrict({required String district}) async {
-    _selectedDistrict = district;
-    notifyListeners();
+    selectedDistrict.value = district;
   }
 
+  void dispose() {
+    selectedCity.dispose();
+    selectedDistrict.dispose();
+    districts.dispose();
+  }
 }

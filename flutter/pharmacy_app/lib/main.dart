@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/core/theme/app_theme.dart';
-import 'package:pharmacy_app/screens/home/viewmodels/home_viewmodel.dart';
-import 'package:pharmacy_app/screens/result/viewmodels/result_viewmodel.dart';
-import 'package:pharmacy_app/screens/detail/viewmodels/detail_viewmodel.dart';
 import 'package:pharmacy_app/core/providers/theme_viewmodel.dart';
 import 'package:pharmacy_app/core/providers/language_viewmodel.dart';
 import 'package:pharmacy_app/screens/home/views/home_page.dart';
@@ -23,9 +20,6 @@ void main() async {
 
       child: MultiProvider(
         providers: [
-          ChangeNotifierProvider(create: (_) => HomeViewModel()),
-          ChangeNotifierProvider(create: (_) => ResultViewModel()),
-          ChangeNotifierProvider(create: (_) => DetailViewModel()),
           ChangeNotifierProvider(create: (_) => ThemeViewModel()),
           ChangeNotifierProvider(create: (_) => LanguageViewModel()),
         ],
