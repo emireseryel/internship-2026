@@ -15,10 +15,13 @@ class Task extends Model
         
     ];
 
-    protected $casts = [
-        'due_at' => 'date_time',
-        'completed_at' => 'date_time',
+    protected function casts() : array 
+    {
+        return[
+        'due_at' => 'datetime',
+        'completed_at' => 'datetime',
     ];
+    }
 
     public function users() {
         return $this->belongsToMany(User::class);

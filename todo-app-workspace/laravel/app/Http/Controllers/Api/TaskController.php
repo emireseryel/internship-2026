@@ -12,7 +12,7 @@ class TaskController extends Controller
     public function index(Request $request) {
         $query = $request->user()->tasks();
 
-        if($query->has('status')){
+        if($request->has('status')){
             if($request->query('status') === 'completed'){
                 $query->whereNotNull('completed_at');
             }else if ($request->query('status') === 'active'){
@@ -44,7 +44,7 @@ class TaskController extends Controller
     }
 
     public function update(Request $request,Task $task) {
-        if($task->user_id != $request->user->id){
+        if($task->user_id != $request->user()->id){
             return response()->json([
                 'message' => 'Error 403-Forbidden.'
             ], 403);
@@ -63,7 +63,7 @@ class TaskController extends Controller
     }
 
     public function destroy(Request $request,Task $task) {
-        if($task->user_id != $request->user->id){
+        if($task->user_id != $request->user()->id){
             return response()->json([
                 'message' => 'Error 403-Forbidden.'
             ], 403);
@@ -74,7 +74,7 @@ class TaskController extends Controller
     }
 
     public function complete(Request $request, Task $task) {
-        if($task->user_id != $request->user->id){
+        if($task->user_id != $request->user()->id){
             return response()->json([
                 'message' => 'Error 403-Forbidden.'
             ], 403);
