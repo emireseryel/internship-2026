@@ -6,6 +6,7 @@ class TaskModel {
   final DateTime? dueAt;
   final DateTime? completedAt;
   final bool isOverdue;
+  bool get isCompleted => completedAt != null;
 
   TaskModel(this.id, this.title, this.description, this.priority,this.dueAt, this.completedAt, this.isOverdue);
 

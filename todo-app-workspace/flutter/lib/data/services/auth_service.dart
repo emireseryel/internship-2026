@@ -12,10 +12,11 @@ class AuthService {
     required String name,
     required String email,
     required String password,
+    required String passwordConfirmation,
   }) async {
     final response = await _dioClient.dio.post(
       ApiConstants.register,
-      data: {'name': name, 'email': email, 'password': password},
+      data: {'name': name, 'email': email, 'password': password, 'passwordConfirmation': passwordConfirmation,},
     );
 
     final token = response.data['access_token'];
@@ -33,7 +34,7 @@ class AuthService {
   }) async {
     final response = await _dioClient.dio.post(
       ApiConstants.login,
-      data: {'email': email, 'password': password},
+      data: {'email': email, 'password': password, 'device_name': 'flutter_app',},
     );
 
     final token = response.data['access_token'];
