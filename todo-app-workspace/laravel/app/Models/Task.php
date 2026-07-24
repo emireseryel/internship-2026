@@ -12,7 +12,7 @@ class Task extends Model
         'title',
         'description',
         'priority',
-        
+        'due_at',
     ];
 
     protected function casts() : array 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AddTask extends StatefulWidget {
-  final Function(String title, String? description, String priority) onAdd;
+  final Function(String title, String? description, String priority, DateTime? dueAt) onAdd;
 
   const AddTask({super.key, required this.onAdd});
 
@@ -14,6 +14,7 @@ class _AddTaskState extends State<AddTask> {
   late final TextEditingController _titleController;
   late final TextEditingController _descriptionController;
   String _selectedPriority = 'medium';
+  DateTime? _selectedDate;
 
   @override
   void initState() {
@@ -38,6 +39,7 @@ class _AddTaskState extends State<AddTask> {
           ? null
           : _descriptionController.text.trim(),
       _selectedPriority,
+      _selectedDate,
     );
 
     Navigator.pop(context);
@@ -95,6 +97,26 @@ class _AddTaskState extends State<AddTask> {
                   }
                 },
               ),
+              const SizedBox(height: 12),
+              TextButton.icon(
+                icon: const Icon(Icons.calendar_today),
+                label: Text(
+                  _selectedDate == null
+                      ? 'Select Due Date (Optional)'
+                      : 'Due: ${_selectedDate!.year}-${_selectedDate!.month.toString().padLeft(2, '0')}-${_selectedDate!.day.toString().padLeft(2, '0')}',
+                ),
+                onPressed: () async {
+                  final picked = await showDatePicker(
+                    context: context,
+                    initialDate: DateTime.now(),
+                    firstDate: DateTime.now(),
+                    lastDate: DateTime(2030),
+                  );
+                  if (picked != null) {
+                    setState(() => _selectedDate = picked);
+                  }
+                },
+              ),
             ],
           ),
         ),
@@ -104,10 +126,7 @@ class _AddTaskState extends State<AddTask> {
           onPressed: () => Navigator.pop(context),
           child: const Text('Cancel'),
         ),
-        ElevatedButton(
-          onPressed: _submit,
-          child: const Text('Add'),
-        ),
+        ElevatedButton(onPressed: _submit, child: const Text('Add')),
       ],
     );
   }

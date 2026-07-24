@@ -40,7 +40,7 @@ class TaskController extends Controller
             'due_at' => $validated['due_at'] ?? null,
         ]);
 
-        return new TaskResource($task);
+       return new TaskResource($task);
     }
 
     public function update(Request $request,Task $task) {

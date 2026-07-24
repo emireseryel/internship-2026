@@ -13,9 +13,7 @@ class TaskService {
       queryParameters: {'status': status},
     );
     final List<dynamic> taskList = response.data['data'];
-    return taskList
-        .map((json) => TaskModel.fromJson(json))
-        .toList();
+    return taskList.map((json) => TaskModel.fromJson(json)).toList();
   }
 
   Future<TaskModel> createTask({
@@ -46,13 +44,11 @@ class TaskService {
     return TaskModel.fromJson(response.data['data']);
   }
 
-  Future<void> deleteTask(int id) async{
-    await _dioClient.dio.delete(
-      '${ApiConstants.tasks}/$id',
-    );
+  Future<void> deleteTask(int id) async {
+    await _dioClient.dio.delete('${ApiConstants.tasks}/$id');
   }
 
-  Future<TaskModel> toggleComplete(int id) async{
+  Future<TaskModel> toggleComplete(int id) async {
     final response = await _dioClient.dio.patch(
       '${ApiConstants.tasks}/$id/complete',
     );
